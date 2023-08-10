@@ -1,5 +1,3 @@
-package Ex_120956;
-
 public class Solution{
     public static void main(String[] args) {
         int result = solution(new String[] {"aya", "yee", "u", "maa", "wyeoo"});
