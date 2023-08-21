@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class Solution {
     public static void main(String[] args) {
-        // System.out.println(solution(new String[] {"leo", "kiki", "eden"}, new String[] {"eden", "kiki"}));
-        // System.out.println(solution(new String[] {"marina", "josipa", "nikola", "vinko", "filipa"}, new String[] {"josipa", "filipa", "marina", "nikola"}));
+        System.out.println(solution(new String[] {"leo", "kiki", "eden"}, new String[] {"eden", "kiki"}));
+        System.out.println(solution(new String[] {"marina", "josipa", "nikola", "vinko", "filipa"}, new String[] {"josipa", "filipa", "marina", "nikola"}));
         System.out.println(solution(new String[] {"mislav", "stanko", "stanko", "stanko", "mislav", "mislav", "ana"}, new String[] {"mislav", "stanko", "stanko", "ana", "mislav", "mislav"}));
     }
 
@@ -25,14 +25,13 @@ public class Solution {
         }
 
         for(int i=0; i<completion.length; i++){
-            if(partMap.get(completion[i]) < 2) continue;
-            else {
-                
-            }
-
-            
+            partMap.compute(completion[i], (s, integer) -> integer-1);
         }
-        
+
+        for(String part : partMap.keySet()){
+            if(partMap.get(part) == 1) return part;
+        }
+
         return "";
     }
 }
