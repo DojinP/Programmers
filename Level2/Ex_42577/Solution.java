@@ -1,6 +1,6 @@
 // 전화번호 목록
 // https://school.programmers.co.kr/learn/courses/30/lessons/42577
-package Level1.Ex_42577;
+package Level2.Ex_42577;
 
 public class Solution {
     public static void main(String[] args) {
