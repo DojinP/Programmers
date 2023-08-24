@@ -1,6 +1,6 @@
 // 기능 개발
 // https://school.programmers.co.kr/learn/courses/30/lessons/42586
-package Level1.Ex_42586;
+package Level2.Ex_42586;
 
 import java.util.ArrayList;
 import java.util.Arrays;
