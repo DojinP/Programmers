@@ -7,7 +7,7 @@ import java.util.Queue;
 public class 게임_맵_최단거리 {
     public static void main(String[] args) {
         System.out.println(solution(new int[][] {{1,0,1,1,1},{1,0,1,0,1},{1,0,1,1,1},{1,1,1,0,1},{0,0,0,0,1}}));
-        //System.out.println(solution(new int[][] {{1,0,1,1,1},{1,0,1,0,1},{1,0,1,1,1},{1,1,1,0,0},{0,0,0,0,1}}));
+        System.out.println(solution(new int[][] {{1,0,1,1,1},{1,0,1,0,1},{1,0,1,1,1},{1,1,1,0,0},{0,0,0,0,1}}));
     }
 
     public static int solution(int[][] maps) {
@@ -15,7 +15,6 @@ public class 게임_맵_최단거리 {
         int[] dy = {0, -1, 1, 0};
         int n = maps[0].length-1;
         int m = maps.length-1;
-//        boolean[][] visited = new boolean[n+1][m+1];
 
         Queue<Location> queue = new LinkedList<>();
         queue.add(new Location(0, 0, 1)); // 0, 0 을 방문한 것이므로 count 1 초기화
@@ -27,19 +26,12 @@ public class 게임_맵_최단거리 {
 
         while(!queue.isEmpty()){
             Location now = queue.poll();
-//            System.out.println(queue + " " + now.x + ", " + now.y);
-//            visited[now.y][now.x] = true;
-            //count++;
             if(now.x == n && now.y == m) return now.count;
-            //System.out.println(now.x + " " + now.y + " " + n + " " + m);
 
             for(int i=0; i<4; i++) {
                 int x = now.x + dx[i];
                 int y = now.y + dy[i];
                 if(x < 0 || x > n || y < 0 || y > m) continue;
-//                if(maps[y][x] == 1 && !visited[y][x]) {
-//                    queue.add(new Location(x, y, now.count+1));
-//                }
                 if(maps[y][x] == 1) {
                     maps[y][x] = 0;
                     queue.add(new Location(x, y, now.count+1));
