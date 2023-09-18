@@ -45,17 +45,20 @@ public class 퍼즐_조각_채우기 {
             }
         }
 
-        // tableFigureList 정렬 (Point[] 사이즈 내림차순)
-        /*Collections.sort(tableFigureList, new Comparator<Figure>() {
-            @Override
-            public int compare(Figure o1, Figure o2) {
-                return o2.points.size() - o1.points.size();
-            }
-        });*/
-
         // table 내부 도형 최적화
-        optimizeFigure(tableFigureList);
-        optimizeFigure(gameBoardFigureList);
+        optimizeFigureList(tableFigureList);
+        optimizeFigureList(gameBoardFigureList);
+
+//        printFigure(tableFigureList.get(1));
+//        rotateFigure(tableFigureList.get(1));
+//        optimizeFigure(tableFigureList.get(1));
+//        printFigure(tableFigureList.get(1));
+//        rotateFigure(tableFigureList.get(1));
+//        optimizeFigure(tableFigureList.get(1));
+//        printFigure(tableFigureList.get(1));
+//        rotateFigure(tableFigureList.get(1));
+//        optimizeFigure(tableFigureList.get(1));
+//        printFigure(tableFigureList.get(1));
 
         // tableFigureList
         System.out.println("tableFigureList");
@@ -92,7 +95,10 @@ public class 퍼즐_조각_채우기 {
                         }
                         else break;
                     }
-                    if(!gameBoardFigure.visited || !tableFigure.visited) rotateFigure(tableFigure);
+                    if(!gameBoardFigure.visited || !tableFigure.visited) {
+                        rotateFigure(tableFigure);
+                        optimizeFigure(tableFigure);
+                    }
                     else break;
                 }
             }
@@ -127,37 +133,38 @@ public class 퍼즐_조각_채우기 {
         figureList.add(figure);
     }
 
-    public static void optimizeFigure(List<Figure> figureList){
+    public static void optimizeFigureList(List<Figure> figureList){
         for(Figure figure : figureList){
-            int minX = 100, minY = 100;
-            int maxX = -1, maxY = -1;
-
-            for(Point p : figure.points){
-                if(p.x < minX) minX = p.x;
-                if(p.y < minY) minY = p.y;
-                if(p.x > maxX) maxX = p.x;
-                if(p.y > maxY) maxY = p.y;
-            }
-
-            figure.size = Math.max(maxX-minX, maxY-minY);
-//            figure.sizeX = maxX + 1 - minX;
-//            figure.sizeY = maxY + 1 - minY;
-
-            for(Point p : figure.points){
-                p.x -= minX;
-                p.y -= minY;
-            }
-
-            Collections.sort(figure.points, new Comparator<Point>() {
-                @Override
-                public int compare(Point o1, Point o2) {
-                    if(o1.x == o2.x)
-                        return o1.y - o2.y;
-                    else
-                        return o1.x - o2.x;
-                }
-            });
+            optimizeFigure(figure);
         }
+    }
+    public static void optimizeFigure(Figure figure){
+        int minX = 100, minY = 100;
+        int maxX = -1, maxY = -1;
+
+        for(Point p : figure.points){
+            if(p.x < minX) minX = p.x;
+            if(p.y < minY) minY = p.y;
+            if(p.x > maxX) maxX = p.x;
+            if(p.y > maxY) maxY = p.y;
+        }
+
+        figure.size = Math.max(maxX-minX, maxY-minY);
+
+        for(Point p : figure.points){
+            p.x -= minX;
+            p.y -= minY;
+        }
+
+        Collections.sort(figure.points, new Comparator<Point>() {
+            @Override
+            public int compare(Point o1, Point o2) {
+                if(o1.x == o2.x)
+                    return o1.y - o2.y;
+                else
+                    return o1.x - o2.x;
+            }
+        });
     }
     
     // 90도 회전
