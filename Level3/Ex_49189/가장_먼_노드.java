@@ -39,24 +39,23 @@ public class 가장_먼_노드 {
 
             for(int i=0; i<edge.length; i++){
                 if(edge[i][0] == now){
-                    if(!visited[edge[i][1]-1] || depths[edge[i][1]-1] > depths[now-1] + 1){
+                    if(!visited[edge[i][1]-1]){
                         stack.push(edge[i][1]);
                         visited[edge[i][1]-1] = true;
                         depths[edge[i][1]-1] = depths[now-1] + 1;
+                    }else if(depths[edge[i][1]-1] > depths[now-1] + 1){
+                        stack.push(edge[i][1]);
+                        depths[edge[i][1]-1] = depths[now-1] + 1;
                     }
-                    /*else{
-                        // 방문했지만 현재 depth 가 기존 depth 보다 낮은 경우 교체
-                        if(depths[edge[i][1]-1] > depths[now-1] + 1) depths[edge[i][1]-1] = depths[now-1] + 1;
-                    }*/
                 }else if(edge[i][1] == now){
-                    if(!visited[edge[i][0]-1] || depths[edge[i][1]-1] > depths[now-1] + 1){
+                    if(!visited[edge[i][0]-1]){
                         stack.push(edge[i][0]);
                         visited[edge[i][0]-1] = true;
-                        if(depths[edge[i][0]-1] == 0) depths[edge[i][0]-1] = depths[now-1] + 1;
+                        depths[edge[i][0]-1] = depths[now-1] + 1;
+                    }else if(depths[edge[i][0]-1] > depths[now-1] + 1){
+                        stack.push(edge[i][0]);
+                        depths[edge[i][0]-1] = depths[now-1] + 1;
                     }
-                    /*else{
-                        if(depths[edge[i][1]-1] > depths[now-1] + 1) depths[edge[i][1]-1] = depths[now-1] + 1;
-                    }*/
                 }
             }
 
