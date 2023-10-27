@@ -10,56 +10,23 @@ public class 정수_삼각형 {
     }
 
     public static int solution(int[][] triangle) {
-        //List<Integer> max_list = new ArrayList<>();
-        int size = triangle.length;
-        int max = 0;
-        int temp_max = 0;
+        // 원본 보존을 위해 배열 복사
+        int[][] copy_triangle = new int[triangle.length][triangle.length];
 
-        // 마지막 줄의 최댓값과 그 index 값을 구함
-        /*int max_index = 0;
-        for(int i=0; i<triangle[size-1].length; i++) {
-            if(triangle[size-1][i] > max) {
-                max = triangle[size-1][i];
-                max_index = i;
-            }
-        }*/
-
-        //max_list.add(max);
-        //System.out.println(max);
-
-        for(int n=0; n<triangle[size-1].length; n++) {
-            int max_index = n;
-            temp_max = triangle[size-1][max_index];
-
-            for (int i = size - 2; i >= 0; i--) {
-                // n-1 번째 줄부터 최댓값을 구하기
-                int now_index;
-                if (max_index == 0) {
-                    // 최댓값의 위치가 현재 줄에서 첫 번째 값이라면
-                    now_index = 0;
-                } else if (max_index == triangle[i + 1].length - 1) {
-                    // 최댓값의 위치가 현재 줄에서 마지막 값이라면
-                    now_index = triangle[i].length - 1;
-
-                } else {
-                    if (triangle[i][max_index - 1] >= triangle[i][max_index]) {
-                        now_index = max_index - 1;
-                    } else {
-                        now_index = max_index;
-                    }
-                }
-
-                //max_list.add(triangle[i][now_index]);
-                //max += triangle[i][now_index];
-                temp_max += triangle[i][now_index];
-                max_index = now_index;
-            }
-
-            if(temp_max > max) max = temp_max;
+        // 배열 복사본 초기화
+        for(int i=0; i<triangle.length; i++){
+            copy_triangle[i] = triangle[i].clone();>
         }
 
-        //System.out.println(max_list);
+        // 마지막 줄부터 계산
+        for(int i=copy_triangle.length-1; i>0; i--){
+            // 1번째 값부터 마지막 값까지 두 값중 큰 값과 윗 줄의 값을 합산한 결과를 저장 (DP)
+            for(int j=0; j<copy_triangle[i].length-1; j++){
+                copy_triangle[i-1][j] += Math.max(copy_triangle[i][j], copy_triangle[i][j+1]);
+            }
+        }
 
-        return max;
+        // 가장 최상단에는 가장 큰 값이 더해진 결과가 저장되어 남게 된다.
+        return copy_triangle[0][0];
     }
 }
